@@ -11,6 +11,10 @@ var _require2 = require("../models/customers"),
     validateCustomer = _require2.validateCustomer,
     Customer = _require2.Customer;
 
+var auth = require('../middlewere/auth');
+
+var admin = require('../middlewere/admin');
+
 router.get('/', function _callee(req, res) {
   var customers;
   return regeneratorRuntime.async(function _callee$(_context) {
@@ -31,7 +35,7 @@ router.get('/', function _callee(req, res) {
     }
   });
 });
-router.post('/create', function _callee2(req, res) {
+router.post('/create', auth, function _callee2(req, res) {
   var _ref, error, customer;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
@@ -118,7 +122,7 @@ router.put('/update/:id', function _callee4(req, res) {
     }
   });
 });
-router["delete"]('/delete/:id', function _callee5(req, res) {
+router["delete"]('/delete/:id', [auth, admin], function _callee5(req, res) {
   var customer;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {

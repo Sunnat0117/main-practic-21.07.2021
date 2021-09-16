@@ -30,7 +30,7 @@ router.post('/', function _callee(req, res) {
             break;
           }
 
-          return _context.abrupt("return", res.status(404).send('not found password or email'));
+          return _context.abrupt("return", res.status(404).send('not found password or email 1'));
 
         case 6:
           _context.next = 8;
@@ -46,7 +46,7 @@ router.post('/', function _callee(req, res) {
             break;
           }
 
-          return _context.abrupt("return", res.status(404).send('not found password or email'));
+          return _context.abrupt("return", res.status(404).send('not found password or email 2'));
 
         case 11:
           _context.next = 13;
@@ -56,17 +56,23 @@ router.post('/', function _callee(req, res) {
           isValidatePwd = _context.sent;
 
           if (isValidatePwd) {
-            _context.next = 16;
+            _context.next = 18;
             break;
           }
 
-          return _context.abrupt("return", res.status(404).send('not found password or email'));
-
-        case 16:
-          token = user.generateAuthToken();
-          res.header('x-auth-token', token).send(true);
+          return _context.abrupt("return", res.status(404).send('not found password or email 3'));
 
         case 18:
+          token = user.generateAuthToken();
+          res.header('x-auth-token', token).send({
+            user: user,
+            token: token
+          });
+          return _context.abrupt("return", res.status(200).json({
+            user: user
+          }));
+
+        case 21:
         case "end":
           return _context.stop();
       }
@@ -76,8 +82,8 @@ router.post('/', function _callee(req, res) {
 
 function validate(req) {
   var schema = Joi.object({
-    email: Joi.string().required().min(8).max(27),
-    password: Joi.string().required().min(8).max(27)
+    email: Joi.string().required().min(2).max(27),
+    password: Joi.string().required().min(2).max(27)
   });
   return schema.validate(req);
 }

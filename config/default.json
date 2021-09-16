@@ -1,3 +1,4 @@
 {
-    "jwtPriveteKey" : "good_good"
+    "jwtPriveteKey" : "good_good",
+    "db": "mongodb://localhost/videoDarslik"
 }

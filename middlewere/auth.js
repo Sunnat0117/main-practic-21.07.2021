@@ -10,8 +10,9 @@ module.exports = function auth (req, res, next){
         const decoder = jwt.verify(token, config.get('jwtPriveteKey'))
         req.user = decoder;
         next();
-    }catch(error){
-        return res.status(400).send('token notogri')
+    }
+    catch(error){
+        return res.status(400).send('token notogri',)
     }
 
 }

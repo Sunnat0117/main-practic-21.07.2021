@@ -11,7 +11,7 @@ router.get('/', async (req, res )=>{
     if(!course) return res.status(404).send('course not found');
     res.status(200).send(course)
 });
-
+    
 router.post('/create',auth, async (req, res)=>{
     const {error} = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message)
@@ -34,10 +34,4 @@ router.post('/create',auth, async (req, res)=>{
     res.status(201).send(course);
 
 })
-
-
-
-
-
-
 module.exports = router;

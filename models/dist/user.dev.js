@@ -5,7 +5,8 @@ var mongoose = require('mongoose');
 var Joi = require('joi');
 
 var _require = require('joi'),
-    string = _require.string;
+    string = _require.string,
+    _boolean = _require["boolean"];
 
 var jwt = require('jsonwebtoken');
 
@@ -21,12 +22,14 @@ var userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  password: String
+  password: String,
+  isAdmin: Boolean
 });
 
 userSchema.methods.generateAuthToken = function () {
   var token = jwt.sign({
-    _id: this._id
+    _id: this._id,
+    isAdmin: this.isAdmin
   }, config.get('jwtPriveteKey'));
   return token;
 };
@@ -37,7 +40,8 @@ function userValidate(user) {
   var schema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().required().email(),
-    password: Joi.string()
+    password: Joi.string(),
+    isAdmin: Joi["boolean"]().required()
   });
   return schema.validate(user);
 }

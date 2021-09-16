@@ -6,11 +6,13 @@ const bcrypt = require('bcrypt')
 const auth  = require('../middlewere/auth')
 
 router.get("/me",auth,  async (req, res)=>{
-    const user = await User.findById(req.body._).select('-password');
-    if(!user) return res.status(404).send('not found')
-
+    const user = await User.findById(req.user._id).select('-password');
+    if(!user) {
+        return res.status(404).send('not found')
+    }
     res.status(200).send(user);
 })
+
 router.post('/create' ,async (req, res)=>{
     const {error}= await validate(req.body);
     if(error) return res.status(404).send(error.details[0].message)
@@ -26,14 +28,15 @@ router.post('/create' ,async (req, res)=>{
          [
              "name",
              'email', 
-             'password'
+             'password',
+             'isAdmin',
          ]
           ));   
 
     const salt = await bcrypt.genSalt();
      user.password = await bcrypt.hash(user.password, salt)
     const result = await user.save();
-    res.status(201).send(_.pick(result, ["name", "email", "password"]))
+    res.status(201).send(_.pick(result, ["name", "email", "password", "isAdmin"]));
     });
 
 

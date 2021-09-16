@@ -25,6 +25,6 @@ function validateCotegory(cotegory) {
   return schema.validate(cotegory);
 }
 
-exports.validates = validateCotegory;
+module.exports = validateCotegory;
 module.exports = Cotegory;
 module.exports = cotegorySchema;

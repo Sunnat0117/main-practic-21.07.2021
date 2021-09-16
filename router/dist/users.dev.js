@@ -21,7 +21,7 @@ router.get("/me", auth, function _callee(req, res) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return regeneratorRuntime.awrap(User.findById(req.body._).select('-password'));
+          return regeneratorRuntime.awrap(User.findById(req.user._id).select('-password'));
 
         case 2:
           user = _context.sent;
@@ -81,7 +81,7 @@ router.post('/create', function _callee2(req, res) {
           return _context2.abrupt("return", res.status(400).send(user.error));
 
         case 11:
-          user = new User(_.pick(req.body, ["name", 'email', 'password']));
+          user = new User(_.pick(req.body, ["name", 'email', 'password', 'isAdmin']));
           _context2.next = 14;
           return regeneratorRuntime.awrap(bcrypt.genSalt());
 
@@ -97,7 +97,7 @@ router.post('/create', function _callee2(req, res) {
 
         case 20:
           result = _context2.sent;
-          res.status(201).send(_.pick(result, ["name", "email", "password"]));
+          res.status(201).send(_.pick(result, ["name", "email", "password", "isAdmin"]));
 
         case 22:
         case "end":

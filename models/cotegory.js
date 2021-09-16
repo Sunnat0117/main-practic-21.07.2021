@@ -17,13 +17,13 @@ const Cotegory = mongoose.model('Cotegory', new mongoose.Schema({
     }
 }))
 
- function validateCotegory(cotegory){
+ function validateCotegory(cotegory) {
     const schema = Joi.object({
         name: Joi.string().required()
 
     })
         return schema.validate(cotegory);
 }   
-exports.validates = validateCotegory;
+module.exports = validateCotegory;
 module.exports = Cotegory;
 module.exports = cotegorySchema
